@@ -43,6 +43,7 @@ const templateTwo = (
         <ol>
             <li>Item One</li>
             <li>Item Two</li>
+            <li>Item Three</li>
         </ol>
         <form>
             <input type="text" name="option" />
