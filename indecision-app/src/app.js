@@ -24,32 +24,55 @@ const template = (
 const app = {
     title: 'Indecision App',
     subtitle: 'Put your life in the hands of a computer',
-    options: ['One', 'Two']
+    options: []
 };
 
-// function getOptions(options) {
-//     if(options.length > 1) {
-//         return(<p>Here are your options</p>)
-//     }else {
-//         return ("No options!")
-//     };
-// };
+const onFormSubmit = (e) => {
+    e.preventDefault();
 
-const templateTwo = (
-    <div>
-        <h1>{(app.title && app.title)}</h1>
-        <h3>{(app.subtitle && app.subtitle)}</h3>
-        <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
-        <ol>
-            <li>Item One</li>
-            <li>Item Two</li>
-            <li>Item Three</li>
-        </ol>
-        <form>
-            <input type="text" name="option" />
-            <button>Add Option</button>
-        </form>
-    </div>
-)
+    const option = e.target.elements.option.value;
+
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+        renderIndecisionApp();
+    };
+};
+
 const appRoot = document.getElementById('app');
-ReactDOM.render(templateTwo, appRoot);
+
+const numbers = [343, 224, 2555]
+
+const reset = () => {
+    app.options = [];
+    renderIndecisionApp();
+};
+
+const renderIndecisionApp = () => {
+    const templateTwo = (
+        <div>
+            <h1>{(app.title && app.title)}</h1>
+            <h3>{(app.subtitle && app.subtitle)}</h3>
+            <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
+            <p>{app.options.length}</p>
+            <button onClick={reset}>Remove All</button>
+            {
+                numbers.map((numbers) => {
+                    return <p key={numbers}>Number: {numbers}</p>;
+
+                })
+            }
+            <ol>
+                <li>Item One</li>
+                <li>Item Two</li>
+                <li>Item Three</li>
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option" />
+                <button>Add Option</button>
+            </form>
+        </div>
+    );
+    ReactDOM.render(templateTwo, appRoot);
+};
+renderIndecisionApp();
